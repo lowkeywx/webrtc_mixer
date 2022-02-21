@@ -36,10 +36,15 @@ ABSL_FLAG(std::string,
           output_file,
           "mixed_file.wav",
           "File in which to store the mixed result.");
-ABSL_FLAG(std::string, input_file_1, "", "First input. Default none.");
-ABSL_FLAG(std::string, input_file_2, "", "Second input. Default none.");
-ABSL_FLAG(std::string, input_file_3, "", "Third input. Default none.");
-ABSL_FLAG(std::string, input_file_4, "", "Fourth input. Default none.");
+ABSL_FLAG(std::string, input_file_1, "/Users/tosee/Downloads/second_test_source/1.wav", "First input. Default none.");
+ABSL_FLAG(std::string, input_file_2, "/Users/tosee/Downloads/second_test_source/2.wav", "Second input. Default none.");
+ABSL_FLAG(std::string, input_file_3, "/Users/tosee/Downloads/second_test_source/3.wav", "Third input. Default none.");
+ABSL_FLAG(std::string, input_file_4, "/Users/tosee/Downloads/second_test_source/4.wav", "Fourth input. Default none.");
+ABSL_FLAG(std::string, input_file_5, "/Users/tosee/Downloads/second_test_source/5.wav", "Five input. Default none.");
+ABSL_FLAG(std::string, input_file_6, "/Users/tosee/Downloads/second_test_source/6.wav", "Sixe input. Default none.");
+ABSL_FLAG(std::string, input_file_7, "/Users/tosee/Downloads/second_test_source/7.wav", "Seven input. Default none.");
+ABSL_FLAG(std::string, input_file_8, "/Users/tosee/Downloads/second_test_source/8.wav", "Eitht input. Default none.");
+ABSL_FLAG(std::string, input_file_9, "/Users/tosee/Downloads/second_test_source/9.wav", "Nine input. Default none.");
 
 namespace webrtc {
 namespace test {
@@ -99,8 +104,16 @@ namespace {
 const std::vector<std::string> parse_input_files() {
   std::vector<std::string> result;
   for (auto& x :
-       {absl::GetFlag(FLAGS_input_file_1), absl::GetFlag(FLAGS_input_file_2),
-        absl::GetFlag(FLAGS_input_file_3), absl::GetFlag(FLAGS_input_file_4)}) {
+       {absl::GetFlag(FLAGS_input_file_1), 
+       absl::GetFlag(FLAGS_input_file_2),
+        absl::GetFlag(FLAGS_input_file_3), 
+        absl::GetFlag(FLAGS_input_file_4),
+        absl::GetFlag(FLAGS_input_file_5),
+        absl::GetFlag(FLAGS_input_file_6),
+        absl::GetFlag(FLAGS_input_file_7),
+        absl::GetFlag(FLAGS_input_file_8),
+        absl::GetFlag(FLAGS_input_file_9)
+        }) {
     if (!x.empty()) {
       result.push_back(x);
     }
