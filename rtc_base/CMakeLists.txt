@@ -17,3 +17,7 @@ synchronization/sequence_checker_internal.cc
 target_include_directories(rtc_base PRIVATE ${CMAKE_SOURCE_DIR})
 target_include_directories(rtc_base PUBLIC ${CMAKE_SOURCE_DIR}/third_party/abseil-cpp)
 target_link_libraries(rtc_base PRIVATE absl::throw_delegate absl::strings)
+if(CMAKE_SYSTEM_NAME MATCHES Windows)
+    target_link_libraries(rtc_base PRIVATE winmm)
+endif()
+
