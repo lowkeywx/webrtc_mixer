@@ -42,7 +42,7 @@ constexpr size_t kPcmWavHeaderSize = 44;
 constexpr size_t kIeeeFloatWavHeaderSize = 58;
 
 // Returns the size of the WAV header for the specified format.
-constexpr size_t WavHeaderSize(WavFormat format) {
+inline size_t WavHeaderSize(WavFormat format) {
   if (format == WavFormat::kWavFormatPcm) {
     return kPcmWavHeaderSize;
   }
@@ -51,7 +51,7 @@ constexpr size_t WavHeaderSize(WavFormat format) {
 }
 
 // Returns the maximum size of the supported WAV formats.
-constexpr size_t MaxWavHeaderSize() {
+inline size_t MaxWavHeaderSize() {
   return std::max(WavHeaderSize(WavFormat::kWavFormatPcm),
                   WavHeaderSize(WavFormat::kWavFormatIeeeFloat));
 }

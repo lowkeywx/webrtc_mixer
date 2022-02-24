@@ -34,12 +34,12 @@ class Frequency final : public rtc_units_impl::RelativeUnit<Frequency> {
   template <typename T>
   static constexpr Frequency Hertz(T value) {
     static_assert(std::is_arithmetic<T>::value, "");
-    return FromFraction(1'000, value);
+    return FromFraction(1000, value);
   }
   template <typename T>
   static constexpr Frequency KiloHertz(T value) {
     static_assert(std::is_arithmetic<T>::value, "");
-    return FromFraction(1'000'000, value);
+    return FromFraction(1000000, value);
   }
 
   Frequency() = delete;

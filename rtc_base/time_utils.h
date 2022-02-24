@@ -35,7 +35,7 @@ static const int64_t kNumNanosecsPerMicrosec =
 // (see https://tools.ietf.org/html/rfc868), and January 1 00:00 GMT 1970
 // epoch. This is useful when converting between the NTP time base and the
 // time base used in RTCP reports.
-constexpr int64_t kNtpJan1970Millisecs = 2'208'988'800 * kNumMillisecsPerSec;
+constexpr int64_t kNtpJan1970Millisecs = 2208988800 * kNumMillisecsPerSec;
 
 // TODO(honghaiz): Define a type for the time value specifically.
 

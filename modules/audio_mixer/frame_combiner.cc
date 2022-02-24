@@ -148,7 +148,7 @@ constexpr size_t FrameCombiner::kMaximumChannelSize;
 FrameCombiner::FrameCombiner(bool use_limiter)
     : data_dumper_(new ApmDataDumper(0)),
       mixing_buffer_(
-          std::make_unique<std::array<std::array<float, kMaximumChannelSize>,
+          absl::make_unique<std::array<std::array<float, kMaximumChannelSize>,
                                       kMaximumNumberOfChannels>>()),
       limiter_(static_cast<size_t>(48000), data_dumper_.get(), "AudioMixer"),
       use_limiter_(use_limiter) {

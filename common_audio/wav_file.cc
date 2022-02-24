@@ -208,7 +208,7 @@ WavWriter::WavWriter(FileWrapper file,
 
   // Write a blank placeholder header, since we need to know the total number
   // of samples before we can fill in the real data.
-  static const uint8_t blank_header[MaxWavHeaderSize()] = {0};
+  static const uint8_t blank_header[kIeeeFloatWavHeaderSize] = {0};
   RTC_CHECK(file_.Write(blank_header, WavHeaderSize(format_)));
 }
 
@@ -279,7 +279,7 @@ void WavWriter::WriteSamples(const float* samples, size_t num_samples) {
 
 void WavWriter::Close() {
   RTC_CHECK(file_.Rewind());
-  std::array<uint8_t, MaxWavHeaderSize()> header;
+  std::array<uint8_t, kIeeeFloatWavHeaderSize> header;
   size_t header_size;
   WriteWavHeader(num_channels_, sample_rate_, format_, num_samples_written_,
                  header.data(), &header_size);

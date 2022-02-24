@@ -262,16 +262,20 @@ class ArrayView final : public array_view_internal::ArrayViewBase<T, Size> {
   const T* cbegin() const { return this->data(); }
   const T* cend() const { return this->data() + this->size(); }
   std::reverse_iterator<T*> rbegin() const {
-    return std::make_reverse_iterator(end());
+    return std::reverse_iterator<T*>(end());
+    //return std::make_reverse_iterator(end());
   }
   std::reverse_iterator<T*> rend() const {
-    return std::make_reverse_iterator(begin());
+    return std::reverse_iterator<T*>(begin());
+    //return std::make_reverse_iterator(begin());
   }
   std::reverse_iterator<const T*> crbegin() const {
-    return std::make_reverse_iterator(cend());
+    return std::reverse_iterator<T*>(cend());
+    //return std::make_reverse_iterator(cend());
   }
   std::reverse_iterator<const T*> crend() const {
-    return std::make_reverse_iterator(cbegin());
+    return std::reverse_iterator<T*>(cbegin());
+    //return std::make_reverse_iterator(cbegin());
   }
 
   ArrayView<T> subview(size_t offset, size_t size) const {

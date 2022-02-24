@@ -97,13 +97,13 @@ struct CompileTimeString {
   char string[NPlus1] = {0};
   constexpr CompileTimeString() = default;
   template <int MPlus1>
-  explicit constexpr CompileTimeString(const char (&chars)[MPlus1]) {
+  explicit  CompileTimeString(const char (&chars)[MPlus1]) {
     char* chars_pointer = string;
     for (auto c : chars)
       *chars_pointer++ = c;
   }
   template <int MPlus1>
-  constexpr auto Concat(CompileTimeString<MPlus1> b) {
+   CompileTimeString<NPlus1 + MPlus1 - 1> Concat(CompileTimeString<MPlus1> b) {
     CompileTimeString<NPlus1 + MPlus1 - 1> result;
     char* chars_pointer = result.string;
     for (auto c : string)
@@ -121,7 +121,7 @@ struct CompileTimeString {
 // Makes a constexpr CompileTimeString<X> without having to specify X
 // explicitly.
 template <int N>
-constexpr auto MakeCompileTimeString(const char (&a)[N]) {
+constexpr rtc_base_string_utils_internal::CompileTimeString<N> MakeCompileTimeString(const char (&a)[N]) {
   return rtc_base_string_utils_internal::CompileTimeString<N>(a);
 }
 

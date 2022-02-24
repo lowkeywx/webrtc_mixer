@@ -131,7 +131,7 @@ AudioMixerImpl::AudioMixerImpl(
     : max_sources_to_mix_(max_sources_to_mix),
       output_rate_calculator_(std::move(output_rate_calculator)),
       audio_source_list_(),
-      helper_containers_(std::make_unique<HelperContainers>()),
+      helper_containers_(absl::make_unique<HelperContainers>()),
       frame_combiner_(use_limiter) {
   RTC_CHECK_GE(max_sources_to_mix, 1) << "At least one source must be mixed";
   audio_source_list_.reserve(max_sources_to_mix);

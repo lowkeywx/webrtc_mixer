@@ -53,6 +53,7 @@ RTC_NORETURN void rtc_FatalMessage(const char* file, int line, const char* msg);
 // C++ version.
 
 #include <string>
+#include <iostream>
 
 #include "absl/meta/type_traits.h"
 #include "absl/strings/string_view.h"
@@ -383,7 +384,11 @@ RTC_NORETURN RTC_EXPORT void UnreachableCodeReached();
 // RTC_CHECK_OP is a helper macro for binary operators.
 // Don't use this macro directly in your code, use RTC_CHECK_EQ et al below.
 #if RTC_CHECK_MSG_ENABLED
-#define RTC_CHECK(condition)                                    \
+
+#define RTC_CHECK(condition) std::cout << (condition)
+
+
+#define RTC_CHECK_ORIGIN(condition)                                    \
   (condition) ? static_cast<void>(0)                            \
               : ::rtc::webrtc_checks_impl::FatalLogCall<false>( \
                     __FILE__, __LINE__, #condition) &           \
@@ -396,7 +401,8 @@ RTC_NORETURN RTC_EXPORT void UnreachableCodeReached();
             __FILE__, __LINE__, #val1 " " #op " " #val2) & \
             ::rtc::webrtc_checks_impl::LogStreamer<>() << (val1) << (val2)
 #else
-#define RTC_CHECK(condition)                                                  \
+#define RTC_CHECK(condition)
+#define RTC_CHECK_ORIGIN(condition)                                                  \
   (condition)                                                                 \
       ? static_cast<void>(0)                                                  \
       : true ? ::rtc::webrtc_checks_impl::FatalLogCall<false>(__FILE__,       \
@@ -472,8 +478,9 @@ inline T CheckedDivExact(T a, T b) {
 #else  // __cplusplus not defined
 // C version. Lacks many features compared to the C++ version, but usage
 // guidelines are the same.
+#define RTC_CHECK(condition)
 
-#define RTC_CHECK(condition)                                                 \
+#define RTC_CHECK_ORIGIN(condition)                                                 \
   do {                                                                       \
     if (!(condition)) {                                                      \
       rtc_FatalMessage(__FILE__, __LINE__,                                   \
