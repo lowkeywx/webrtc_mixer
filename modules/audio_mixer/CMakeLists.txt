@@ -3,17 +3,18 @@ project(MediaEngine_Modules_AudioMixer)
 
 set(TARGET_NAME modules_audio_mixer)
  
-add_library(${TARGET_NAME} SHARED
+add_library(${TARGET_NAME} OBJECT
 ./audio_frame_manipulator.cc
 ./audio_mixer_impl.cc
 ./default_output_rate_calculator.cc
 ./frame_combiner.cc
 )
 
-target_include_directories(${TARGET_NAME} PUBLIC ${CMAKE_SOURCE_DIR})
-target_include_directories(${TARGET_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/third_party/abseil-cpp)
-target_link_libraries(${TARGET_NAME} PRIVATE rtc_base api audio modules_audio_process system_wrappers common_audio)
+target_include_directories(${TARGET_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../)
+target_include_directories(${TARGET_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../third_party/abseil-cpp)
+
 target_link_libraries(${TARGET_NAME} PRIVATE absl::flags_parse)
+target_compile_definitions(${TARGET_NAME} PRIVATE WEBRTC_APM_DEBUG_DUMP=0)
 
 if(ANDROID)
         find_library(ANDROID_LOG_LIB log)

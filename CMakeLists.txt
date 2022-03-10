@@ -28,7 +28,6 @@ elseif(CMAKE_SYSTEM_NAME MATCHES Linux)
     ADD_DEFINITIONS(-DWEBRTC_LINUX)
 endif()
 
-
 add_subdirectory(third_party/abseil-cpp)
 add_subdirectory(api)
 add_subdirectory(audio)
@@ -36,3 +35,27 @@ add_subdirectory(modules)
 add_subdirectory(common_audio)
 add_subdirectory(rtc_base)
 add_subdirectory(system_wrappers)
+
+if(BUILD_SHARED)
+set(LIBRARY_TYPE SHARED)
+else()
+set(LIBRARY_TYPE STATIC)
+endif(BUILD_DYNAMIC)
+
+add_library(ts_mixer ${LIBRARY_TYPE} MixerImpl.cpp 
+$<TARGET_OBJECTS:modules_audio_mixer>
+$<TARGET_OBJECTS:rtc_base>
+$<TARGET_OBJECTS:api>
+$<TARGET_OBJECTS:audio>
+$<TARGET_OBJECTS:modules_audio_process>
+$<TARGET_OBJECTS:system_wrappers>
+$<TARGET_OBJECTS:common_audio>
+)
+
+target_link_libraries(ts_mixer PRIVATE absl::throw_delegate absl::strings)
+
+target_include_directories(ts_mixer PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(ts_mixer PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/third_party/abseil-cpp)
+
+INSTALL ( TARGETS ts_mixer						DESTINATION lib )
+
